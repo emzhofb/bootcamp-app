@@ -6,7 +6,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+// mengimport router agar bisa di jalankan app.js
 var coursesRouter = require('./routes/courses');
+var studentsRouter = require('./routes/students');
 
 var app = express();
 
@@ -22,7 +24,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+// menggunakan router yang sudah di import
 app.use('/courses', coursesRouter);
+app.use('/students', studentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

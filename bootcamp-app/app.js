@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// import login session
+const session = require('express-session')
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 // mengimport router agar bisa di jalankan app.js
@@ -21,6 +24,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// use session for login
+app.use(session({ secret: 'keyboard cat', cookie: {   } }))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

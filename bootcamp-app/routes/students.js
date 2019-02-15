@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const models = require('../models')
+const { checkAuth } = require('../middlewares/auth')
 
 /* GET users listing. */
 // menampilkan data dari tabel student di database ke views => students => index
-router.get('/', function(req, res, next) {
+router.get('/', checkAuth, function(req, res, next) {
     // passing students include course
     models.Student.findAll({include: [{model: models.Course}]}).then(students => {
         models.Course.findAll().then(courses => {
@@ -19,7 +20,7 @@ router.get('/', function(req, res, next) {
 });
 
 // mengambil student
-router.get('/create', (req, res) => {
+router.get('/create', checkAuth, (req, res) => {
     models.Course.findAll().then(courses => {
         // redirect ke views => students => index
         res.render('students/create', {courses: courses})
@@ -44,7 +45,7 @@ router.post('/create', (req, res) => {
     })
 })
 
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', checkAuth, (req, res) => {
     // buat variable baru untuk menampung id student yang akan di hapus
     const studentId = req.params.id
     // mencari student yang sama dengan id nya

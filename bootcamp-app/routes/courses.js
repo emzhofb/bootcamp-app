@@ -14,4 +14,20 @@ router.get('/', function(req, res, next) {
     })
 });
 
+// get untuk mengambil course
+router.get('/create', (req, res) => {
+    res.render('courses/create')
+})
+
+// menambah course ke database
+router.post('/create', (req, res) => {
+    const { name } = req.body
+    models.Course.create({name}).then(courses => {
+        res.redirect('/courses')
+    }).catch(err => {
+        console.log(err)
+        res.redirect('/courses')
+    })
+})
+
 module.exports = router;

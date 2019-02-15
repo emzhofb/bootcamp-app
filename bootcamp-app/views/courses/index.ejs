@@ -2,8 +2,7 @@
 <html>
   <head>
     <title>Courses</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  </head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">  </head>
   <body>
     <div class="text-center alert alert-secondary container">
       <h1>Welcome</h1>
@@ -17,6 +16,10 @@
           <% courses.forEach( course => { %>
             <tr>
               <td><%= course.name %></td>
+              <td>
+                <a class="btn btn-info" style="color: white">Edit</a>
+                <a class="btn btn-danger" style="color: white" onclick="return confirm('Delete kursus?')">Delete</a>
+              </td>
             </tr>
           <% }) %>
         </tbody>

@@ -12,11 +12,18 @@
     <div class="container">
       <div class="card">
         <div class="card-body">
-          <h1>Add Course</h1>
-          <form action="/courses/create" method="POST">
+          <h1>Add Student</h1>
+          <form action="/students/create" method="POST">
             <div class="form-group">
-              <label>Course Name</label>
+              <label>Student Name</label>
               <input type="text" class="form-control" name="name">
+              <label>Student Course</label>
+              <select name="courseId" class="form-control">
+                <option>Choose Course</option>
+                <% courses.forEach( course => { %>
+                  <option value="<%= course.id %>"><%= course.name %></option>
+                <% }) %>
+              </select>
               <br>
               <button type="submit" class="btn btn-primary">Add</button>
             </div>

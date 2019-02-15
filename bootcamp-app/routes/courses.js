@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
 
 // get untuk mengambil course
 router.get('/create', (req, res) => {
+    // redirect ke views => courses => index
     res.render('courses/create')
 })
 
@@ -28,6 +29,7 @@ router.post('/create', (req, res) => {
         // redirect ke page course
         res.redirect('/courses')
     }).catch(err => {
+        // menampilkan error
         console.log(err)
         res.redirect('/courses')
     })
@@ -63,7 +65,7 @@ router.get('/edit/:id', (req, res) => {
         }
     }).then(courses => {
         // mempassing data course ke views => edit
-        res.render('courses/edit', { courses: courses})
+        res.render('courses/edit', {courses: courses})
     }).catch(err => {
         console.log(err)
         res.render('/courses')

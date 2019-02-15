@@ -21,8 +21,11 @@ router.get('/create', (req, res) => {
 
 // menambah course ke database
 router.post('/create', (req, res) => {
+    // mengambil name dari courses
     const { name } = req.body
+    // membuat baru untuk course
     models.Course.create({name}).then(courses => {
+        // redirect ke page course
         res.redirect('/courses')
     }).catch(err => {
         console.log(err)
@@ -31,16 +34,62 @@ router.post('/create', (req, res) => {
 })
 
 router.get('/delete/:id', (req, res) => {
+    // buat variable baru untuk menampung id course yang akan di edit
     const courseId = req.params.id
+    // mencari course yang sama dengan id coursenya
     models.Course.findOne({
         where: {
             id: courseId
         }
     }).then(courses => {
+        // menghapus course yang sesuai dengan id yang di ambil
         return courses.destroy()
     }).then(courses => {
         res.redirect('/courses')
     }).catch(err => {
+        res.redirect('/courses')
+    })
+})
+
+router.get('/edit/:id', (req, res) => {
+    // membuat variable baru untuk menampung id coursenya
+    const courseId = req.params.id
+    // mengambil name dari course di databasenya
+    const { name } = req.body
+    // mencari course yang sama dengan id course yang di pilih
+    models.Course.findOne({
+        where: {
+            id: courseId
+        }
+    }).then(courses => {
+        // mempassing data course ke views => edit
+        res.render('courses/edit', { courses: courses})
+    }).catch(err => {
+        console.log(err)
+        res.render('/courses')
+    })
+})
+
+router.post('/edit/:id', (req, res) => {
+    // membuat variable baru yang menampung id coursenya
+    const courseId = req.params.id
+    // membuat variable baru untuk menampung name dari coursenya
+    const { name } = req.body
+    // mencari course yang sama dengan idnya
+    models.Course.findOne({
+        where: {
+            id: courseId
+        }
+    }).then(courses => {
+        // merubah name dari coursenya
+        return courses.update({
+            name
+        })
+    }).then(updateCourses => {
+        // kembali ke page course
+        res.redirect('/courses')
+    }).catch(err => {
+        console.log(err)
         res.redirect('/courses')
     })
 })
